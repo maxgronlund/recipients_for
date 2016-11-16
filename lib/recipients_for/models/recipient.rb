@@ -1,9 +1,10 @@
 module RecipientsFor
   class Recipient < ActiveRecord::Base
+    self.table_name_prefix = 'rf_'
     serialize :notifications
     belongs_to :messageble, polymorphic: true
     belongs_to :reciveable, polymorphic: true
-    has_many :reader_infos#, class_name: RecipientsFor::ReaderInfo
+    has_many :reader_infos, class_name: :reader_info
 
     # Get all reciveables for a given messageble
     # Receivables comes in all diffrent colors (User, Person)

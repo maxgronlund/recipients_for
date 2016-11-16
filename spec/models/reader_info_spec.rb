@@ -4,33 +4,12 @@ require 'spec_helper'
 RSpec.describe RecipientsFor::ReaderInfo do
 
   before :each do
-    @user   = User.create(name: Faker::Name.name, email: Faker::Internet.email)
+    setup_dummy_data
+    @reader_info.update_attributes(read: false)
+  end
 
-    @messageble = Car.create(brand: "Ford", model: "Expedition")
-    @subject = RecipientsFor::Subject.create(
-      subject:          Faker::Lorem.sentence,
-      messageable_type: @messageble.class.name,
-      messageable_id:   @messageble.id
-    )
-    @recipient = RecipientsFor::Recipient.create(
-      messageble_type:  @messageble.class.name,
-      messageble_id:    @messageble.id,
-      reciveable_type:  @user.class.name,
-      reciveable_id:    @user.id
-    )
-    @reader_info = RecipientsFor::ReaderInfo.create(
-      read: false,
-      uuid:             SecureRandom.uuid,
-      subject_id:       @subject.id,
-      recipient_id:     @recipient.id,
-      reciveable_type:  @user.class.name,
-      reciveable_id:    @recipient.id,
-      internal:         true,
-      notifications:    [
-        {notification_type: "email", name: "email", checked: true, internal: false},
-        {notification_type: "internal", name: "intern besked", checked: false, internal: true}
-      ]
-    )
+  after :each do
+    destroy_dummy_data
   end
 
   it "Check if the message is read by a reciveable" do

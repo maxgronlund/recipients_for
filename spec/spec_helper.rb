@@ -49,4 +49,47 @@ def clear_db
   Car.delete_all
 end
 
+def setup_dummy_data
+  @messageble = Car.create(brand: "Ford", model: "Expedition")
+  @subject    = RecipientsFor::Subject.create(
+    subject:          Faker::Lorem.sentence,
+    messageable_type: @messageble.class.name,
+    messageable_id:   @messageble.id
+  )
+  @user   = User.create(name: Faker::Name.name, email: Faker::Internet.email)
+  @recipient = RecipientsFor::Recipient.create(
+    messageble_type:  @messageble.class.name,
+    messageble_id:    @messageble.id,
+    reciveable_type:  @user.class.name,
+    reciveable_id:    @user.id
+  )
+  @content = @subject.contents.create(
+    content:         Faker::Lorem.sentence,
+    authorable_type: @user.class.name,
+    authorable_id:   @user.id
+  )
+  @content2 = @subject.contents.create(
+        content:         Faker::Lorem.sentence,
+        authorable_type: @user.class.name,
+        authorable_id:   @user.id
+      )
+  @reader_info = RecipientsFor::ReaderInfo.create(
+    read: true,
+    uuid:             SecureRandom.uuid,
+    subject_id:       @subject.id,
+    recipient_id:     @recipient.id,
+    reciveable_type:  @user.class.name,
+    reciveable_id:    @user.id,
+    internal:         true,
+    notifications:    [
+      {notification_type: "email", name: "email", checked: true, internal: false},
+      {notification_type: "internal", name: "intern besked", checked: false, internal: true}
+    ]
+  )
+end
+
+def destroy_dummy_data
+
+end
+
 setup_db

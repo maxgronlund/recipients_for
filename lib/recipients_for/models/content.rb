@@ -1,6 +1,7 @@
 module RecipientsFor
   class Content < ActiveRecord::Base
-    #belongs_to :subject, counter_cache: true, class_name: RecipientsFor::Subject
+    self.table_name_prefix = 'rf_'
+    belongs_to :subject, counter_cache: true
     belongs_to :authorable, polymorphic: true
     validates :content, presence: true
     # virtual parameter

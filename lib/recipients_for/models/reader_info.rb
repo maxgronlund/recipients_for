@@ -1,5 +1,6 @@
 module RecipientsFor
   class ReaderInfo < ActiveRecord::Base
+    self.table_name_prefix = 'rf_'
     serialize :notifications
     belongs_to :subject, counter_cache: true#, class_name: RecipientsFor::Subject
     belongs_to :recipient#, class_name: RecipientsFor::Recipient
