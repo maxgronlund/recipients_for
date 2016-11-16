@@ -8,15 +8,11 @@ RSpec.describe RecipientsFor::ReaderInfo do
     @reader_info.update_attributes(read: false)
   end
 
-  after :each do
-    destroy_dummy_data
-  end
-
   it "Check if the message is read by a reciveable" do
-    read = RecipientsFor::ReaderInfo.read_by?(@subject.id, @user)
+    read = RecipientsFor::ReaderInfo.read_by?(@test_subject.id, @test_user)
     expect(read).to eq false
     @reader_info.mark_as_read!
-    read = RecipientsFor::ReaderInfo.read_by?(@subject.id, @user)
+    read = RecipientsFor::ReaderInfo.read_by?(@test_subject.id, @test_user)
     expect(read).to eq true
   end
 

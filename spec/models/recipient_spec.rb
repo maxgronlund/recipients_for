@@ -4,14 +4,14 @@ require 'spec_helper'
 RSpec.describe RecipientsFor::Recipient do
 
   before :each do
-    @messageble = Car.create(brand: "Ford", model: "Expedition")
+    @test_messageble = Car.create(brand: "Ford", model: "Expedition")
     @personas = []
-    @recipients = []
+    @test_recipients = []
     (1..10).to_a.each do |id|
       user = User.create(name: Faker::Name.name, email: Faker::Internet.email)
-      @recipients << RecipientsFor::Recipient.create(
-        messageble_type: @messageble.class.name,
-        messageble_id: @messageble.id,
+      @test_recipients << RecipientsFor::Recipient.create(
+        messageble_type: @test_messageble.class.name,
+        messageble_id: @test_messageble.id,
         reciveable_type:  user.class.name,
         reciveable_id:  user.id
       )
@@ -20,13 +20,13 @@ RSpec.describe RecipientsFor::Recipient do
   end
 
   it "Get all reciveables for a given messageble" do
-    reciveables = RecipientsFor::Recipient.reciveables(@messageble)
+    reciveables = RecipientsFor::Recipient.reciveables(@test_messageble)
     expect(reciveables.count).to eq 10
     expect(reciveables[0].class.name).to eq 'User'
   end
 
   it "Get all recipients for a messagble" do
-    recipients = RecipientsFor::Recipient.messageble_recipients(@messageble.class.name, @messageble.id )
+    recipients = RecipientsFor::Recipient.messageble_recipients(@test_messageble.class.name, @test_messageble.id )
     expect(recipients.count).to eq 10
     expect(recipients[0].class.name).to eq 'RecipientsFor::Recipient'
   end
@@ -38,7 +38,7 @@ RSpec.describe RecipientsFor::Recipient do
 
   it "Secure there is one and only one receipient for each persona in the system" do
     RecipientsFor::Recipient.find_or_create_receipients(
-      messageble: @messageble,
+      messageble: @test_messageble,
       personas: @personas,
       notifications: [
         {notification_type: "email", name: "email", checked: true, internal: false},
@@ -48,10 +48,10 @@ RSpec.describe RecipientsFor::Recipient do
   end
 
   it "Return the reciveables email" do
-    expect(@recipients[0].email).to eq @personas[0].email
+    expect(@test_recipients[0].email).to eq @personas[0].email
   end
 
   it "Return the reciveables name" do
-    expect(@recipients[0].name).to eq @personas[0].name
+    expect(@test_recipients[0].name).to eq @personas[0].name
   end
 end

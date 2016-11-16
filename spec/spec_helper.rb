@@ -50,46 +50,46 @@ def clear_db
 end
 
 def setup_dummy_data
-  @messageble = Car.create(brand: "Ford", model: "Expedition")
-  @subject    = RecipientsFor::Subject.create(
+  @test_messageble      = Car.create(brand: "Ford", model: "Expedition")
+  @test_subject    = RecipientsFor::Subject.create(
     subject:          Faker::Lorem.sentence,
-    messageable_type: @messageble.class.name,
-    messageable_id:   @messageble.id
+    messageable_type: @test_messageble.class.name,
+    messageable_id:   @test_messageble.id
   )
-  @user   = User.create(name: Faker::Name.name, email: Faker::Internet.email)
-  @recipient = RecipientsFor::Recipient.create(
-    messageble_type:  @messageble.class.name,
-    messageble_id:    @messageble.id,
-    reciveable_type:  @user.class.name,
-    reciveable_id:    @user.id
+  @test_user   = User.create(name: Faker::Name.name, email: Faker::Internet.email)
+  @test_recipient = RecipientsFor::Recipient.create(
+    messageble_type:  @test_messageble.class.name,
+    messageble_id:    @test_messageble.id,
+    reciveable_type:  @test_user.class.name,
+    reciveable_id:    @test_user.id,
+    notifications:    [
+      {notification_type: "email", name: "email", checked: true, internal: false},
+      {notification_type: "internal", name: "intern besked", checked: false, internal: true}
+    ]
   )
-  @content = @subject.contents.create(
+  @test_content = @test_subject.contents.create(
     content:         Faker::Lorem.sentence,
-    authorable_type: @user.class.name,
-    authorable_id:   @user.id
+    authorable_type: @test_user.class.name,
+    authorable_id:   @test_user.id
   )
-  @content2 = @subject.contents.create(
+  @test_content2 = @test_subject.contents.create(
         content:         Faker::Lorem.sentence,
-        authorable_type: @user.class.name,
-        authorable_id:   @user.id
+        authorable_type: @test_user.class.name,
+        authorable_id:   @test_user.id
       )
   @reader_info = RecipientsFor::ReaderInfo.create(
     read: true,
     uuid:             SecureRandom.uuid,
-    subject_id:       @subject.id,
-    recipient_id:     @recipient.id,
-    reciveable_type:  @user.class.name,
-    reciveable_id:    @user.id,
+    subject_id:       @test_subject.id,
+    recipient_id:     @test_recipient.id,
+    reciveable_type:  @test_user.class.name,
+    reciveable_id:    @test_user.id,
     internal:         true,
     notifications:    [
       {notification_type: "email", name: "email", checked: true, internal: false},
       {notification_type: "internal", name: "intern besked", checked: false, internal: true}
     ]
   )
-end
-
-def destroy_dummy_data
-
 end
 
 setup_db
