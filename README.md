@@ -26,18 +26,19 @@ Or install it yourself as:
 ## Usage
 
 Add this to application.js
-    //= require message/recipients
+
+      //= require message/recipients
 
 routes.rb
 
-namespace :message do
-  resources :contents
-  resources :recipients, only: [:create]
-  resources :all_recipients, only: [:create]
-  resources :downloads, only: [:show]
-  put 'mark_all_as_read', to: 'mark_all_as_read#update'
-end
-resources :messages, path: '/messages', controller: 'message/messages'
+    namespace :message do
+      resources :contents
+      resources :recipients, only: [:create]
+      resources :all_recipients, only: [:create]
+      resources :downloads, only: [:show]
+      put 'mark_all_as_read', to: 'mark_all_as_read#update'
+    end
+    resources :messages, path: '/messages', controller: 'message/messages'
 
 :all_recipients, :downloads, 'mark_all_as_read' are optional
 -----------------------------------------
