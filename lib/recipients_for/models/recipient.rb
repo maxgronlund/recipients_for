@@ -58,9 +58,9 @@ module RecipientsFor
             messageble_id:    messageble.id,
             reciveable_type:  person.class.name,
             reciveable_id:    person.id,
+            internal:         internal,
+            notifications:    notifications
           )
-          recipient.internal      = internal
-          recipient.notifications = notifications
           recipient.save
           recipients << recipient
       end
@@ -75,6 +75,5 @@ module RecipientsFor
     def name
       reciveable ? reciveable.name : "NA"
     end
-
   end
 end

@@ -23,7 +23,7 @@ module RecipientsFor
 
     # Get all messages for a subject
     def all_messageble_messages(messageble)
-      @message_subjects = RecipientsFor::Subject.where(
+      @subjects = RecipientsFor::Subject.order("created_at desc").where(
         messageable_type: messageble.class.name,
         messageable_id: messageble.id
       )
@@ -32,6 +32,7 @@ module RecipientsFor
     # Find a message_subject and the content for the message
     # Creates a new content for a reply
     # mark the message as read
+    # TODO Rename/ breakdown it both find and new
     def show_message(id, persona)
       @subject = RecipientsFor::Subject.includes(:contents).find(id)
       @content = RecipientsFor::Content.new
@@ -109,7 +110,6 @@ module RecipientsFor
         end
         if enable
           subject.reader_infos.create(
-            recipient_id:     recipient.id,
             read:             false,
             uuid:             SecureRandom.uuid,
             reciveable_type:  recipient.reciveable_type,
@@ -131,8 +131,7 @@ module RecipientsFor
         read:             options[:read],
         internal:         true
       ).pluck(:subject_id)
-     RecipientsFor::Subject.includes(:contents, :reader_infos).where(id: subject_ids)
+     RecipientsFor::Subject.order("updated_at asc").includes(:contents, :reader_infos).where(id: subject_ids)
     end
   end
-
 end

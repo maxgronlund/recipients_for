@@ -44,5 +44,36 @@ module RecipientsFor
     def name
       recipient.name.nil? ? "NA" : recipient.name
     end
+
+    # Get number of unread messages for a receivable
+    def self.unread_by_count(options={})
+      for_reciveable(options, false).count
+    end
+
+    # Get all unread messages for a reciveable
+    def self.unread_by(options={})
+      read_by_reciveable(options, false)
+    end
+
+    # Get all read messages for a reciveable
+    def self.read_by(options={})
+      read_by_reciveable(options, true)
+    end
+
+    private
+
+    def self.read_by_reciveable(options={}, read)
+      subject_ids = for_reciveable(options, read).pluck(:subject_id)
+      RecipientsFor::Subject.includes(:contents, :reader_infos).where(id: subject_ids)
+    end
+
+    def self.for_reciveable(options={}, read)
+      order("updated_at desc").where(
+        reciveable_type:  options[:reciveable_type],
+        reciveable_id:    options[:reciveable_id],
+        read:             read,
+        internal:         true
+      )
+    end
   end
 end

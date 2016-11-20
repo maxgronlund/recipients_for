@@ -1,15 +1,12 @@
 module RecipientsFor
   class Subject < ActiveRecord::Base
     self.table_name_prefix = 'rf_'
-    #has_attached_file :attachment,
-    #                  url: '/attachments/:id',
-    #                  path: ':rails_root/uploads/subjects/:id/:style/:basename.:extension'
-    #do_not_validate_attachment_file_type :attachment
-
     has_many :contents, dependent: :destroy
     has_many :reader_infos
     has_many :receipients
+    belongs_to :messageable, polymorphic: true
     validates :subject, presence: true
+
 
     accepts_nested_attributes_for :contents
 
@@ -18,12 +15,6 @@ module RecipientsFor
       return "" if contents.empty? || contents.first.authorable.nil?
       contents.first.content
     end
-
-    # Get number of readers from first message_content
-    # use when ther is only one message_content
-    # def first_content_readers_count
-    #   reader_infos_count
-    # end
 
     # Get the author name for the original subject
     def author_name
@@ -35,6 +26,10 @@ module RecipientsFor
     def latest_content_created_at
       return DateTime.now if contents.empty?  || contents.last.created_at.nil?
       contents.last.created_at
+    end
+
+    def replies
+      contents.order("created_at DESC") - [contents.first]
     end
 
     # Get number of replies
@@ -58,21 +53,14 @@ module RecipientsFor
       "?"
     end
 
-    # Get unread messages for a recipient
-    #def unread_messages(recipient)
-    #  subject_ids = reader_infos.where(
-    #    reciveable_type: recipient.class.name,
-    #    reciveable_id: recipient.id).pluck(:subject_id)
-    #  Message::Subject.where(id: subject_ids)
-    #end
-
     # Get number of internal readers
     def internal_readers_count
       reader_infos.where(internal: true).count
     end
 
-    # Mark as unread for all readers
+    # Mark as unread for all readers and update created_at date
     def mark_as_unread
+      touch
       reader_infos.update_all(read: false)
     end
   end

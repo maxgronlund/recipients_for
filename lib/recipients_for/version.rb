@@ -1,3 +1,3 @@
 module RecipientsFor
-  VERSION = "0.1.12"
+  VERSION = "0.1.14"
 end
