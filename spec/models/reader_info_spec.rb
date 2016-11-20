@@ -26,4 +26,31 @@ RSpec.describe RecipientsFor::ReaderInfo do
     expect(@reader_info.name).not_to be "NA"
   end
 
+  it "Get number of unread messages for a receivable" do
+    count = RecipientsFor::ReaderInfo.unread_by_count(
+      reciveable_type:  @test_user.class.name,
+      reciveable_id:    @test_user.id
+    )
+    expect(count).to be 1
+  end
+
+  it "Get all unread messages for a reciveable" do
+    subjects =  RecipientsFor::ReaderInfo.unread_by(
+      reciveable_type:  @test_user.class.name,
+      reciveable_id:    @test_user.id
+    )
+    expect(subjects.count).to be 1
+    expect(subjects[0].class.name).to eq "RecipientsFor::Subject"
+  end
+
+  it "Get all read messages for a reciveable" do
+    @reader_info.update_attributes(read: true)
+    subjects =  RecipientsFor::ReaderInfo.read_by(
+      reciveable_type:  @test_user.class.name,
+      reciveable_id:    @test_user.id
+    )
+    expect(subjects.count).to be 1
+    expect(subjects[0].class.name).to eq "RecipientsFor::Subject"
+  end
+
 end

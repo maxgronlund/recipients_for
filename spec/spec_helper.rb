@@ -8,10 +8,10 @@ require 'recipients_for/models/reader_info'
 require 'recipients_for/models/recipient'
 require 'awesome_print'
 require 'faker'
+require 'rails'
 require 'support/factory_girl'
 require 'support/car'
 require 'support/user'
-require 'paperclip'
 
 RSpec.configure do |config|
 

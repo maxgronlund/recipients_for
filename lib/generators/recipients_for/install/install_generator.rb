@@ -15,7 +15,14 @@ module RecipientsFor
         template "migration.rb",  "db/migrate/#{next_migration_number}_recipients_for_migration.rb"
       end
 
+      def install_javascript
+        template "recipients_for.js.coffee", "app/assets/javascripts/recipients_for.js.coffee"
+      end
 
+      def install_controllers
+        template "controllers/all_recipients_controller.rb", "app/controllers/recipients_for/all_recipients_controller.rb"
+        template "controllers/recipients_controller.rb", "app/controllers/recipients_for/recipients_controller.rb"
+      end
     end
   end
 end

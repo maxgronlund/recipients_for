@@ -58,7 +58,7 @@ RSpec.describe RecipientsFor::MessageServices do
     expect(@content.persisted?).to eq false
   end
 
-  it "" do
+  it "Find or create receipients" do
     find_or_create_receipients(
       messageble: @test_messageble,
       personas: @personas,
