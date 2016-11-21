@@ -1,7 +1,7 @@
 class RecipientsForMigration < ActiveRecord::Migration
   def self.up
     create_table :rf_subjects do |t|
-      t.string :subject
+      t.string :title
       t.integer :contents_count, default: 0
       t.integer :reader_infos_count, default: 0
       t.string :messageable_type
@@ -15,7 +15,7 @@ class RecipientsForMigration < ActiveRecord::Migration
     add_index :rf_subjects, [:messageable_type, :messageable_id]
 
     create_table :rf_contents do |t|
-      t.text :content
+      t.text :body
       t.belongs_to :subject, index: true
       t.integer :authorable_id
       t.string :authorable_type

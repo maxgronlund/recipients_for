@@ -1,0 +1,33 @@
+================================================================================================
+                                                  __                      ___
+                    __          __               /\ \__                 /'___\
+ _ __    __    ___ /\_\  _____ /\_\     __    ___\ \ ,_\   ____        /\ \__/  ___   _ __
+/\`'__\/'__`\ /'___\/\ \/\ '__`\/\ \  /'__`\/' _ `\ \ \/  /',__\       \ \ ,__\/ __`\/\`'__\
+\ \ \//\  __//\ \__/\ \ \ \ \L\ \ \ \/\  __//\ \/\ \ \ \_/\__, `\       \ \ \_/\ \L\ \ \ \/
+ \ \_\\ \____\ \____\\ \_\ \ ,__/\ \_\ \____\ \_\ \_\ \__\/\____/        \ \_\\ \____/\ \_\
+  \/_/ \/____/\/____/ \/_/\ \ \/  \/_/\/____/\/_/\/_/\/__/\/___/   _______\/_/ \/___/  \/_/
+                           \ \_\                                  /\______\
+                            \/_/                                  \/______/
+
+
+
+  1:  $ bundle install
+
+  2:  Add include RecipientsFor::Messages to models you want to be 'messageble'
+
+  3:  $ rails g --help for more install options
+
+  4:  View demo at https://recipients-for.herokuapp.com/
+
+  5:  Github repo at https://github.com/maxgronlund/recipients_for
+
+  6: in config/routes.rb
+
+     namespace :recipients_for do
+       resources :contents
+       resources :recipients, only: [:create]
+       resources :all_recipients, only: [:create]
+       put 'mark_all_as_read', to: 'mark_all_as_read#update'
+     end
+
+================================================================================================

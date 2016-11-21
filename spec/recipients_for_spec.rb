@@ -8,12 +8,20 @@ describe RecipientsFor do
   describe "#configure" do
     before do
       RecipientsFor.configure do |config|
-
       end
     end
 
     it "does nothing" do
+    end
+  end
 
+  describe "#extend active record models" do
+    before :each do
+      setup_dummy_data
+    end
+
+    it 'act as recipients' do
+      expect(@test_messageble.message_count).to eq 1
     end
   end
 

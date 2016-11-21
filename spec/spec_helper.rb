@@ -6,6 +6,7 @@ require 'recipients_for/models/content'
 require 'recipients_for/models/subject'
 require 'recipients_for/models/reader_info'
 require 'recipients_for/models/recipient'
+require 'recipients_for/messages'
 require 'awesome_print'
 require 'faker'
 require 'rails'
@@ -51,8 +52,8 @@ end
 
 def setup_dummy_data
   @test_messageble      = Car.create(brand: "Ford", model: "Expedition")
-  @test_subject    = RecipientsFor::Subject.create(
-    subject:          Faker::Lorem.sentence,
+  @test_subject  = RecipientsFor::Subject.create(
+    title:            "Your head is not an artifact!",
     messageable_type: @test_messageble.class.name,
     messageable_id:   @test_messageble.id
   )
@@ -68,12 +69,12 @@ def setup_dummy_data
     ]
   )
   @test_content = @test_subject.contents.create(
-    content:         Faker::Lorem.sentence,
+    body:         Faker::Lorem.sentence,
     authorable_type: @test_user.class.name,
     authorable_id:   @test_user.id
   )
   @test_content2 = @test_subject.contents.create(
-        content:         Faker::Lorem.sentence,
+        body:         Faker::Lorem.sentence,
         authorable_type: @test_user.class.name,
         authorable_id:   @test_user.id
       )

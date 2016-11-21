@@ -21,9 +21,9 @@ RSpec.describe RecipientsFor::MessageServices do
     expect(@read_messages.count).to eq 1
   end
 
-  it "Get all messages for a subject" do
-    expect(all_messageble_messages(@test_messageble).count).to eq 1
-  end
+  # it "Get all messages for a subject" do
+  #   expect(all_messageble_messages(@test_messageble).count).to eq 1
+  # end
 
   it "Find a message_subject and the content for the message
       Creates a new content for a reply
@@ -46,7 +46,7 @@ RSpec.describe RecipientsFor::MessageServices do
       author:       @test_user,
       messageable:  @test_messageble,
       params:       {
-        subject: Faker::Lorem.sentence,
+        title: Faker::Lorem.sentence,
         messageable_type: @test_messageble.class.name,
         messageable_id:   @test_messageble.id}
     )

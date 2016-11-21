@@ -7,8 +7,8 @@ RSpec.describe RecipientsFor::Subject do
     setup_dummy_data
   end
 
-  it "Get original content from when subject was created" do
-    expect(@test_subject.content).to eq @test_content.content
+  it "Get body from origianl message" do
+    expect(@test_subject.title).to eq "Your head is not an artifact!"
   end
 
   it "Get the author name for the original subject" do
