@@ -5,7 +5,8 @@ module RecipientsFor
     belongs_to :authorable, polymorphic: true
     validates :body, presence: true
     # virtual parameter
-    attr_writer   :return_path
+    attr_writer   :return_path, :messageble_var_name, :render_error_path
+
 
     # Get the authors name
     def author_name
@@ -13,5 +14,3 @@ module RecipientsFor
     end
   end
 end
-
-# RecipientsFor::Content

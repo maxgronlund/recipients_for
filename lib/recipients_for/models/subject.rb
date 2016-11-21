@@ -11,7 +11,7 @@ module RecipientsFor
     accepts_nested_attributes_for :contents
 
     # Get body from origianl message
-    def content
+    def body
       return "" if contents.empty? || contents.first.authorable.nil?
       contents.first.body
     end

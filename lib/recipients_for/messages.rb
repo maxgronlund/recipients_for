@@ -1,3 +1,4 @@
+# include this class to a model to get messages
 module RecipientsFor
   module Messages
     extend ActiveSupport::Concern

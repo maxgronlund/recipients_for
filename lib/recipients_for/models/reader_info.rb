@@ -2,8 +2,8 @@ module RecipientsFor
   class ReaderInfo < ActiveRecord::Base
     self.table_name_prefix = 'rf_'
     serialize :notifications
-    belongs_to :subject, counter_cache: true#, class_name: RecipientsFor::Subject
-    belongs_to :recipient#, class_name: RecipientsFor::Recipient
+    belongs_to :subject, counter_cache: true
+    belongs_to :recipient
     validates :subject_id, presence: true
     validates :reciveable_id, presence: true
     validates :reciveable_type, presence: true

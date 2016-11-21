@@ -15,7 +15,6 @@ module RecipientsFor
     end
 
     def update_recipient_notifications(options={})
-
       recipient         = RecipientsFor::Recipient.find(options[:recipient_id].to_i)
       notification_type = options[:notification_type]
       checked           = options[:checked] == "true"
