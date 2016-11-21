@@ -5,15 +5,15 @@ module RecipientsFor
     has_many :reader_infos
     has_many :receipients
     belongs_to :messageable, polymorphic: true
-    validates :subject, presence: true
+    validates :title, presence: true
 
 
     accepts_nested_attributes_for :contents
 
-    # Get original content from when subject was created
+    # Get body from origianl message
     def content
       return "" if contents.empty? || contents.first.authorable.nil?
-      contents.first.content
+      contents.first.body
     end
 
     # Get the author name for the original subject

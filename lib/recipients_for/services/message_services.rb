@@ -21,14 +21,6 @@ module RecipientsFor
       end
     end
 
-    # Get all messages for a subject
-    def all_messageble_messages(messageble)
-      @subjects = RecipientsFor::Subject.order("created_at desc").where(
-        messageable_type: messageble.class.name,
-        messageable_id: messageble.id
-      )
-    end
-
     # Find a message_subject and the content for the message
     # Creates a new content for a reply
     # mark the message as read

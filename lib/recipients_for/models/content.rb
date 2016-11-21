@@ -3,7 +3,7 @@ module RecipientsFor
     self.table_name_prefix = 'rf_'
     belongs_to :subject, counter_cache: true
     belongs_to :authorable, polymorphic: true
-    validates :content, presence: true
+    validates :body, presence: true
     # virtual parameter
     attr_writer   :return_path
 
