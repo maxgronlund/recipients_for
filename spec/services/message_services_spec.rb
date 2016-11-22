@@ -21,10 +21,6 @@ RSpec.describe RecipientsFor::MessageServices do
     expect(@read_messages.count).to eq 1
   end
 
-  # it "Get all messages for a subject" do
-  #   expect(all_messageble_messages(@test_messageble).count).to eq 1
-  # end
-
   it "Find a message_subject and the content for the message
       Creates a new content for a reply
       and mark the message as read" do

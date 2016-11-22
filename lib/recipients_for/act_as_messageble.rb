@@ -7,11 +7,7 @@ module RecipientsFor
 
     module ClassMethods
       def act_as_messageble(options = {})
-         cattr_accessor :yaffle_text_field
-        self.yaffle_text_field = (options[:yaffle_text_field] || :last_squawk).to_s
-
         include RecipientsFor::ActAsMessageble::LocalInstanceMethods
-
       end
     end
 
@@ -22,10 +18,22 @@ module RecipientsFor
       end
 
       def all_messages()
-        RecipientsFor::Subject.where(
+        RecipientsFor::Subject.order("updated_at DESC").where(
           messageable_type: self.class.name,
           messageable_id: id
         )
+      end
+    end
+
+    def all_readers(subject)
+      @readers = []
+      if reader_infos = subject.reader_infos
+        reader_infos.each do |reader_info|
+          @readers << {
+            name: reader_info.name,
+            read: reader_info.read
+          }
+        end
       end
     end
 

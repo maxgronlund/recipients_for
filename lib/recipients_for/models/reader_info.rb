@@ -24,10 +24,12 @@ module RecipientsFor
       ).nil? ? false : true
     end
 
+
+
     # Get all reader_infos for a subject
-    def self.readers_for(subject)
-      RecipientsFor::ReaderInfo.where(subject_id: subject.id)
-    end
+    #def self.readers_for(subject)
+    #  RecipientsFor::ReaderInfo.where(subject_id: subject.id)
+    #end
 
     # Mark a subject as read by a persona
     def self.mark_as_read(subject_id, persona)
