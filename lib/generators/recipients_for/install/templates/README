@@ -13,7 +13,7 @@
 
   1:  $ bundle install
 
-  2:  Add include RecipientsFor::Messages to models you want to be 'messageble'
+  2:  Add has_messages at the top of models you want to be have the message system connected to
 
   3:  $ rails g --help for more install options
 

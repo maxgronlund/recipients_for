@@ -7,8 +7,8 @@ require "recipients_for/models/reader_info"
 require "recipients_for/models/subject"
 require "recipients_for/models/content"
 require "recipients_for/models/recipient"
-require "recipients_for/messages"
-require 'recipients_for/messages'
+require "recipients_for/act_as_messageble"
+
 
 
 module RecipientsFor
