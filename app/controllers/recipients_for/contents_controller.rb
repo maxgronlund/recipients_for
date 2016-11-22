@@ -3,7 +3,6 @@ class RecipientsFor::ContentsController < ApplicationController
   # POST/ create a reply to a subject
   # Mark subject as unread
   def create
-    ap params
     subject_id                = params[:recipients_for_content][:subject_id]
     @subject                   = RecipientsFor::Subject.find(subject_id)
     @content                  = @subject.contents.new(recipients_for_content_params)
