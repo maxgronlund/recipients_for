@@ -1,0 +1,21 @@
+table.table.table-bordered
+  thead.thead-inverse
+    tr
+      th Recipients
+      - @notifications.each do |notification|
+        th
+          = render "recipients_for/select_all_recipients_check_box",
+            messageble: messageble,
+            notification_type: notification[:notification_type]
+          '&nbsp;
+          = notification[:name]
+  tbody
+    - recipients.each do |recipient|
+      tr
+        td = recipient.name
+        - recipient.notifications.each do |notification|
+          td
+            = render "recipients_for/recipient_check_box",
+              checked: notification[:checked],
+              notification_type: notification[:notification_type],
+              recipient_id: recipient.id

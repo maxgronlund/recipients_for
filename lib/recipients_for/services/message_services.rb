@@ -65,6 +65,19 @@ module RecipientsFor
       @content  = RecipientsFor::Content.new
     end
 
+    # Setup new models for the new form
+    def new_messageble(options={})
+      messageble = options[:messageble],
+      readers    = options[:readers]
+      find_or_create_receipients(
+        messageble: options[:messageble],
+        personas:    options[:readers],
+        notifications: options[:notifications]
+      )
+      @subject  = RecipientsFor::Subject.new
+      @content  = RecipientsFor::Content.new
+    end
+
     def find_or_create_receipients(options)
       @messageble    = options[:messageble]
       @personas      = options[:personas]

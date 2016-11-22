@@ -1,0 +1,7 @@
+= check_box_tag("recipient_id_#{recipient_id}",
+    recipient_id,
+    checked,
+    class: "recipient_checkbox #{notification_type}",
+    recipient_id: recipient_id,
+    notification_type: notification_type,
+    authenticity_token: form_authenticity_token)
