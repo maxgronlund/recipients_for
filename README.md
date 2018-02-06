@@ -6,6 +6,7 @@ The sender can select recipients and delivery options for each recipient
 Recipients can reply to messages.
 For each messages it's possible to se how many readers there is and if they have read the massage
 The system is fully customizable. Views, controller and divelivery options can are customizable
+Live demo on https://recipients-for.herokuapp.com/
 
 ## Installation
 
